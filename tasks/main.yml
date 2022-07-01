@@ -1,0 +1,57 @@
+---
+- name: Install fish on Debian
+  ansible.builtin.include_tasks:
+    file: Debian.yml
+  when:
+    - ansible_facts.os_family == "Debian"
+
+- name: Install fish on Ubuntu
+  ansible.builtin.include_tasks:
+    file: Ubuntu.yml
+  when:
+    - ansible_facts.os_family == "Ubuntu"
+
+- name: Get fish path
+  command: which fish
+  changed_when: false
+  register: get_fish_path
+
+- name: Add fishpath to /etc/shells
+  ansible.builtin.lineinfile:
+    path: /etc/shells
+    line: "{{ get_fish_path.stdout }}"
+
+- name: Change default shell to fish
+  become: yes
+  ansible.builtin.user:
+    name: "{{ ansible_facts.env.USER }}"
+    shell: "{{ get_fish_path.stdout }}"
+
+- name: Make directories
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/.config/fish/{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - "functions"
+    - "conf.d"
+- name: 
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/fish/{{ item }}"
+    mode: '0644'
+  loop:
+    - config.fish
+    - conf.d/git_prompt.fish
+    - functions/fish_greeting.fish
+    - functions/fish_prompt.fish
+    - functions/fish_greeting.fish
+
+- name: 
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ ansible_facts.env.HOME }}/.config/fish/{{ item }}"
+    mode: '0644'
+  loop:
+    - conf.d/add_paths.fish
+    - conf.d/prepare_commands.fish

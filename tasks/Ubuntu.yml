@@ -1,0 +1,15 @@
+---
+- name: Add fish3 stable repository from PPA and install its signing key on Ubuntu target
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+
+- name: apt update
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install fish
+  become: yes
+  ansible.builtin.apt:
+    name: "fish={{ fish_version }}"

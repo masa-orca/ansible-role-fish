@@ -1,0 +1,51 @@
+---
+- name: Add source to source.list.d
+  become: yes
+  ansible.builtin.copy:
+    content: "deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_{{ ansible_facts.distribution_major_version }}/ /"
+    dest: /etc/apt/sources.list.d/shells:fish:release:3.list
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Get stats of shells_fish_release_3.gpg file
+  become: yes
+  ansible.builtin.stat:
+    path: /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg
+  register: stat_result
+
+- name: Download shells_fish_release_3.gpg
+  block:
+    - name: Download Release.key
+      ansible.builtin.get_url:
+        url: "https://download.opensuse.org/repositories/shells:fish:release:3/Debian_{{ ansible_facts.distribution_major_version }}/Release.key"
+        dest: /tmp/Release.key
+      
+    - name: Create gpg key file
+      ansible.builtin.shell: cat /tmp/Release.key | gpg --dearmor
+      register: gpg_dearmor
+
+    - name: Delete Release.key
+      ansible.builtin.file:
+        path: /tmp/Release.key
+        state: absent
+
+    - name: Add shells_fish_release_3.gpg to trusted.gpg.d
+      become: yes
+      ansible.builtin.copy:
+        content: "{{ gpg_dearmor.stdout }}"
+        dest: /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg
+        mode: '0644'
+        owner: root
+        group: root
+
+    - name: apt update
+      become: yes
+      ansible.builtin.apt:
+        update_cache: yes
+  when: not stat_result.stat.exists
+
+- name: Install fish
+  become: yes
+  ansible.builtin.apt:
+    name: "fish={{ fish_version }}"
