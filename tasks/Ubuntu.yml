@@ -1,0 +1,21 @@
+---
+- name: Run apt update
+  become: true
+  ansible.builtin.apt:
+    name: gnupg
+    update_cache: true
+
+- name: Add fish3 stable repository from PPA and install its signing key on Ubuntu target
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+
+- name: Run apt update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install fish
+  become: true
+  ansible.builtin.apt:
+    name: fish
