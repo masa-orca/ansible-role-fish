@@ -1,0 +1,37 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Collect facts
+      ansible.builtin.setup:
+
+    - name: Run apt update
+      ansible.builtin.apt:
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "Ubuntu"
+
+    - name: Install gpg
+      ansible.builtin.apt:
+        name: gpg
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "Debian"
+
+    - name: Update cache
+      ansible.builtin.yum:
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "CentOS"
+
+    - name: Update cache
+      ansible.builtin.dnf:
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "Rocky"
+
+    - name: Update cache
+      ansible.builtin.dnf:
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "AlmaLinux"

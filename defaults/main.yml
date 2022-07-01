@@ -1,0 +1,21 @@
+---
+fish_environment_variables: []
+fish_additional_paths: []
+fish_prompt_script: |
+  # Please write prompt script.
+fish_prompt_state: absent
+fish_right_prompt_script: |
+  # Please write right prompt script.
+fish_right_prompt_state: absent
+fish_mode_prompt_script: |
+  # Please write mode prompt script.
+fish_mode_prompt_state: absent
+fish_command_not_found_script: |
+  # Please write command not found script.
+fish_command_not_found_state: absent
+fish_title_script: |
+  # Please write fish title script.
+fish_title_state: absent
+fish_greeting_script: |
+  # Please write fish greeting script.
+fish_greeting_state: absent

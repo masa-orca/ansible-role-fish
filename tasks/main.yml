@@ -1,0 +1,174 @@
+---
+- name: Collect facts
+  become: true
+  ansible.builtin.setup:
+
+- name: Install fish on Debian
+  ansible.builtin.include_tasks:
+    file: Debian.yml
+  when:
+    - ansible_facts.distribution == "Debian"
+
+- name: Install fish on Ubuntu
+  ansible.builtin.include_tasks:
+    file: Ubuntu.yml
+  when:
+    - ansible_facts.distribution == "Ubuntu"
+
+- name: Install fish on Rocky
+  ansible.builtin.include_tasks:
+    file: Rocky.yml
+  when:
+    - ansible_facts.distribution == "Rocky"
+
+- name: Install fish on AlmaLinux
+  ansible.builtin.include_tasks:
+    file: AlmaLinux.yml
+  when:
+    - ansible_facts.distribution == "AlmaLinux"
+
+- name: Set environment variables
+  ansible.builtin.shell: "set -Ux {{ item.name }} {{ item.value }}"
+  args:
+    executable: fish
+  loop: "{{ fish_environment_variables }}"
+
+- name: Add paths
+  ansible.builtin.shell: "fish_add_path {{ item }}"
+  args:
+    executable: fish
+  loop: "{{ fish_additional_paths }}"
+
+- name: Collect user facts
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - '!<any valid subset>'
+      - user
+
+- name: Make .config/fish/functions directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_prompt
+    function_script: "{{ fish_prompt_script }}"
+  when: fish_prompt_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_prompt_state }}"
+  vars:
+    function_name: fish_prompt
+  when: fish_prompt_state == "absent"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_right_prompt
+    function_script: "{{ fish_right_prompt_script }}"
+  when: fish_right_prompt_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_right_prompt_state }}"
+  vars:
+    function_name: fish_right_prompt
+  when: fish_right_prompt_state == "absent"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_mode_prompt
+    function_script: "{{ fish_mode_prompt_script }}"
+  when: fish_mode_prompt_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_mode_prompt_state }}"
+  vars:
+    function_name: fish_mode_prompt
+  when: fish_mode_prompt_state == "absent"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_command_not_found
+    function_script: "{{ fish_command_not_found_script }}"
+  when: fish_command_not_found_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_command_not_found_state }}"
+  vars:
+    function_name: fish_command_not_found
+  when: fish_command_not_found_state == "absent"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_title
+    function_script: "{{ fish_title_script }}"
+  when: fish_title_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_title_state }}"
+  vars:
+    function_name: fish_title
+  when: fish_title_state == "absent"
+
+- name: "Configure {{ function_name }} function"
+  ansible.builtin.template:
+    src: function.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  vars:
+    function_name: fish_greeting
+    function_script: "{{ fish_greeting_script }}"
+  when: fish_greeting_state == "present"
+
+- name: "Delete {{ function_name }} function"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/functions/{{ function_name }}.fish"
+    state: "{{ fish_greeting_state }}"
+  vars:
+    function_name: fish_greeting
+  when: fish_greeting_state == "absent"
