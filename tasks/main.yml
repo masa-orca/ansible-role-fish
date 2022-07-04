@@ -4,13 +4,14 @@
     file: Debian.yml
   when:
     - ansible_facts.os_family == "Debian"
-
+    - !ansible_facts.distribution == "Ubuntu"
+    
 - name: Install fish on Ubuntu
   ansible.builtin.include_tasks:
     file: Ubuntu.yml
   when:
-    - ansible_facts.os_family == "Ubuntu"
-
+    - ansible_facts.distribution == "Ubuntu"
+    
 - name: Get fish path
   command: which fish
   changed_when: false
