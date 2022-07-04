@@ -46,7 +46,7 @@
     - conf.d/git_prompt.fish
     - functions/fish_greeting.fish
     - functions/fish_prompt.fish
-    - functions/fish_greeting.fish
+    - functions/fish_right_prompt.fish
 
 - name: 
   ansible.builtin.template:
