@@ -15,12 +15,6 @@
   when:
     - ansible_facts.distribution == "Ubuntu"
 
-- name: Install fish on CentOS
-  ansible.builtin.include_tasks:
-    file: CentOS.yml
-  when:
-    - ansible_facts.distribution == "CentOS"
-
 - name: Install fish on Rocky
   ansible.builtin.include_tasks:
     file: Rocky.yml

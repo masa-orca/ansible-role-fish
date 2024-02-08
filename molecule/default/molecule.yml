@@ -4,10 +4,6 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: centos7
-    image: centos:7
-  - name: centos8stream
-    image: quay.io/centos/centos:stream8
   - name: rocky8
     image: rockylinux:8
   - name: rocky9
