@@ -20,3 +20,9 @@
     file: CentOS.yml
   when:
     - ansible_facts.distribution == "CentOS"
+
+- name: Install fish on Rocky
+  ansible.builtin.include_tasks:
+    file: Rocky.yml
+  when:
+    - ansible_facts.distribution == "Rocky"

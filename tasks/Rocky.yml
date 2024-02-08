@@ -1,0 +1,11 @@
+---
+- name: Install epel-release
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+    name: epel-release
+
+- name: Install fish
+  become: true
+  ansible.builtin.dnf:
+    name: fish

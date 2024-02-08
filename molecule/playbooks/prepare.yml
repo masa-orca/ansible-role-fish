@@ -25,3 +25,10 @@
         update_cache: true
       when:
         - ansible_facts.distribution == "CentOS"
+
+    - name: Update cache
+      become: true
+      ansible.builtin.dnf:
+        update_cache: true
+      when:
+        - ansible_facts.distribution == "Rocky"
