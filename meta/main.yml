@@ -7,8 +7,7 @@ galaxy_info:
     company: home
     license: MIT License
     min_ansible_version: 2.13.0
-    version: "1.0.0"
-    readme: "README.md"
+    github_branch: main
     platforms:
         - name: Debian
           versions:
@@ -24,8 +23,6 @@ galaxy_info:
     galaxy_tags:
         - shell
         - fish
-    repository: https://github.com/masa-orca/ansible-role-fish.git
-    homepage: https://github.com/masa-orca/ansible-role-fish
-    issues: https://github.com/masa-orca/ansible-role-fish/issues
+   issue_tracker_url: https://github.com/masa-orca/ansible-role-fish/issues
 
 dependencies: []
