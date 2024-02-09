@@ -45,5 +45,7 @@ galaxy_info:
     galaxy_tags:
         - shell
         - fish
+    namespace: masa_orca
+    role_name: fish
 
 dependencies: []
