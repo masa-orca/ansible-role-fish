@@ -1,13 +1,36 @@
 ---
 galaxy_info:
-    role_name: fish
-    namespace: masa_orca
+  author: geerlingguy
+  description: Elasticsearch for Linux.
+  company: "Midwestern Mac, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  galaxy_tags:
+    - web
+    - system
+    - monitoring
+    - logging
+    - lucene
+    - elk
+    - elasticsearch
+
+
+galaxy_info:
     author: masa-orca
     description: This role will install fish.
     company: home
     license: MIT License
     min_ansible_version: 2.13.0
-    github_branch: main
     platforms:
         - name: Debian
           versions:
@@ -18,11 +41,9 @@ galaxy_info:
               - all
         - name: EL
           versions:
-              - 7
               - 8
     galaxy_tags:
         - shell
         - fish
-   issue_tracker_url: https://github.com/masa-orca/ansible-role-fish/issues
 
 dependencies: []
