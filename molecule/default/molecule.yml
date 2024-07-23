@@ -16,6 +16,8 @@ platforms:
     image: debian:buster
   - name: debian_bullseye
     image: debian:bullseye
+  - name: debian_bookworm
+    image: debian:bookworm
 provisioner:
   name: ansible
   playbooks:

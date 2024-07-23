@@ -3,8 +3,8 @@
   ansible.builtin.assert:
     that:
       - 9 <= (ansible_facts.distribution_major_version | int)
-      - (ansible_facts.distribution_major_version | int) <= 11
-    fail_msg: "'ansible_facts.distribution_major_version' must be between 9 and 11"
+      - (ansible_facts.distribution_major_version | int) <= 12
+    fail_msg: "'ansible_facts.distribution_major_version' must be between 9 and 12"
 
 - name: Add source to source.list.d
   become: true
