@@ -3,7 +3,6 @@
   hosts: all
   tasks:
     - name: Collect facts
-      become: true
       ansible.builtin.setup:
 
     - name: Run apt update
