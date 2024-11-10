@@ -33,8 +33,6 @@
       when:
         - ansible_facts.distribution == "Rocky"
 
-    - debug: var=ansible_facts.distribution
-
     - name: Update cache
       become: true
       ansible.builtin.dnf:
