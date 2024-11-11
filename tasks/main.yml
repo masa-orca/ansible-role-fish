@@ -20,3 +20,9 @@
     file: Rocky.yml
   when:
     - ansible_facts.distribution == "Rocky"
+
+- name: Install fish on AlmaLinux
+  ansible.builtin.include_tasks:
+    file: AlmaLinux.yml
+  when:
+    - ansible_facts.distribution == "AlmaLinux"
