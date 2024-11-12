@@ -6,11 +6,13 @@ driver:
 platforms:
   - name: rocky8
     image: quay.io/ucomesdag/rocky:8
+    pre_build_image: true
   - name: rocky9
     image: quay.io/ucomesdag/rocky:latest
     pre_build_image: true
   - name: almalinux8
     image: quay.io/ucomesdag/almalinux:8
+    pre_build_image: true
   - name: almalinux9
     image: quay.io/ucomesdag/almalinux:latest
     pre_build_image: true
