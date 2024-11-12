@@ -8,7 +8,7 @@ platforms:
     image: rockylinux:9
     pre_build_image: true
   - name: almalinux9
-    image: almalinux:9
+    image: quay.io/ucomesdag/almalinux:latest
     pre_build_image: true
   - name: ubuntu_focal
     image: ubuntu:focal
