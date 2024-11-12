@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: rocky9
-    image: rockylinux:9
+    image: quay.io/ucomesdag/rocky:latest
     pre_build_image: true
   - name: almalinux9
     image: quay.io/ucomesdag/almalinux:latest
